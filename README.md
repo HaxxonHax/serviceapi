@@ -120,6 +120,8 @@ A **blocks** definition place settings within bracketed (or braced) blocks.  Thi
 
 ##### Example `blocks` file
 
+In this example, it's also worth noting that the `closer` was used and set to a semi-colon.
+
 ```
 server {
 bind_address=0.0.0.0;
