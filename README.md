@@ -118,7 +118,7 @@ For `ServiceConfig`, **jsonarray** is actually an array of `jsonarray` settings.
 
 A **blocks** definition place settings within bracketed (or braced) blocks.  This isn't typical for many configuration files, but has been seen in configurations, such as *Redsocks*.
 
-### Example `blocks` file
+##### Example `blocks` file
 
 ```
 server {
