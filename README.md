@@ -133,3 +133,65 @@ port=5678;
 }
 ```
 
+### ServiceApi
+
+The `ServiceApi` class is created to simplify/unify control of system services via Rest-like API.
+
+#### Requirements
+
+This module requires the `PolicyKit-1` package for controlling the systemd bus.
+
+#### Parameters
+
+- `servicename`  - (*required*) The name of the service (sans `.service`).  For example, if this was `nginx.service`, you would use `servicename=nginx`.
+
+#### Functions
+
+- `get_sysd_manager_interface` - Used for controlling the systemd bus.
+
+#### Methods
+
+##### `dbus_action(action)`
+
+This applies the `action` to the service.  **Action** must be one of `start`, `stop`, and `restart`.
+
+##### `dbus_getstate()`
+
+This gets the current state of the service.  It returns a dictionary that indicates the `active_state` and `sub_state`.  For example: `inactive (dead)` = `{'active_state': 'inactive', 'sub_state': 'dead'}`.
+
+##### `enable()`
+
+Creates the symbolic links to the service in `/etc/systemd/system/multi-user.target.wants` (from `/lib/systemd/system/<servicename>.service`).  Returns a dictionary that includes a `message` (array of strings), and a `status` (integer return value (`0` = successful).
+
+##### `disable()`
+
+Removes the symbolic links to the service in `/etc/systemd/system/multi-user.target.wants` (from `/lib/systemd/system/<servicename>.service`).  Returns a dictionary that includes a `message` (array of strings), and a `status` (integer return value (`0` = successful).
+
+##### `start()`
+
+Starts the service using the `dbus_action` method.  Returns a dictionary that includes a `message` (array of strings), and a `status` (integer return value (`0` = successful).
+
+##### `stop()`
+
+Stops the service using the `dbus_action` method.  Returns a dictionary that includes a `message` (array of strings), and a `status` (integer return value (`0` = successful).
+
+##### `restart()`
+
+Restarts the service using the `dbus_action` method.  Returns a dictionary that includes a `message` (array of strings), and a `status` (integer return value (`0` = successful).
+
+##### `status()`
+
+Gets the service status using the `dbus_getstate` method.  Returns a dictionary that includes a `message` (array of strings), and a `status` (integer return value (`0` = successful).
+
+##### `servicectl()`
+
+Controls the service using the `enable`, `disable`, `start`, `stop`, `status`, or `restart` methods.  Returns a dictionary that includes a `message` (array of strings), and a `status` (integer return value (`0` = successful).
+
+##### `enable_and_start()`
+
+Uses the `enable` and `start` methods to enable the service and start the service.  Returns a dictionary that includes a `message` (array of strings), and a `status` (integer return value (`0` = successful).
+
+##### `disable_and_stop()`
+
+Uses the `disable` and `stop` methods to enable the service and start the service.  Returns a dictionary that includes a `message` (array of strings), and a `status` (integer return value (`0` = successful).
+
